@@ -1,0 +1,8 @@
+# Push-buttons:
+NET "rst_i" LOC = "L14" ; # pressed high BTN3
+NET "clk_i" LOC = "M13" ; # pressed high BTN0
+# pin M13 is not dedicated to clock, so force it:
+NET "clk_i" CLOCK_DEDICATED_ROUTE = FALSE;
+# LEDs:
+NET "led_o<0>" LOC = "K12" ; # high on
+NET "led_o<1>" LOC = "P14" ; # high on
