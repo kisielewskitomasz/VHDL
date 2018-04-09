@@ -26,7 +26,7 @@ ARCHITECTURE behavior OF test_board IS
    signal start_stop_button_i : std_logic := '0';
    signal rst_i : std_logic := '0';
 
- 	--Outputs
+   --Outputs
    signal led7_an_o : std_logic_vector(3 downto 0);
    signal led7_seg_o : std_logic_vector(7 downto 0);
 
@@ -35,7 +35,7 @@ ARCHITECTURE behavior OF test_board IS
  
 BEGIN
  
-	-- Instantiate the Unit Under Test (UUT)
+  -- Instantiate the Unit Under Test (UUT)
    uut: board PORT MAP (
           clk_i => clk_i,
           start_stop_button_i => start_stop_button_i,
@@ -47,35 +47,40 @@ BEGIN
    -- Clock process definitions
    clk_i_process :process
    begin
-		clk_i <= '0';
-		wait for clk_i_period/2;
-		clk_i <= '1';
-		wait for clk_i_period/2;
+    clk_i <= '0';
+    wait for clk_i_period/2;
+    clk_i <= '1';
+    wait for clk_i_period/2;
    end process;
  
 
    -- Stimulus process
    stim_proc: process
    begin	
-		wait for clk_i_period * 100;
-		start_stop_button_i <= '1';
-		wait for clk_i_period * 80;
-		start_stop_button_i <= '0';
-	
-		wait for clk_i_period * 300;
-		start_stop_button_i <= '1';
-		wait for clk_i_period * 80;
-		start_stop_button_i <= '0';
+    wait for clk_i_period * 100;
+    start_stop_button_i <= '1';
+    wait for clk_i_period * 80;
+    start_stop_button_i <= '0';
+  
+    wait for clk_i_period * 300;
+    start_stop_button_i <= '1';
+    wait for clk_i_period * 80;
+    start_stop_button_i <= '0';
       
       wait for clk_i_period * 100;
-		start_stop_button_i <= '1';
-		wait for clk_i_period * 80;
-		start_stop_button_i <= '0';
-	
-		wait for clk_i_period * 300;
-		start_stop_button_i <= '1';
-		wait for clk_i_period * 80;
-		start_stop_button_i <= '0';
+    start_stop_button_i <= '1';
+    wait for clk_i_period * 80;
+    start_stop_button_i <= '0';
+  
+    wait for clk_i_period * 300;
+    start_stop_button_i <= '1';
+    wait for clk_i_period * 80;
+    start_stop_button_i <= '0';
+    
+    wait for clk_i_period * 300;
+    rst_i <= '1';
+    wait for clk_i_period * 80;
+    rst_i <= '0';
       wait;
    end process;
 
