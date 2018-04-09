@@ -127,27 +127,31 @@ begin
                    cur_time(3) <= 0;
                    cur_time(4) <= 0;
             end if;
-            
+
             if (timer_start = '1' and timer_stop = '0') then
-                if (cur_time(0) < 9) then
-                    cur_time(0) <= cur_time(0) + 1;
-                end if;
-                if (cur_time(1) < 9 and cur_time(0) = 9) then
+                cur_time(0) <= cur_time(0) + 1;
+
+                if (cur_time(0) = 10) then -- 9
                     cur_time(0) <= 0;
                     cur_time(1) <= cur_time(1) + 1;
                 end if;
-                if (cur_time(2) < 9 and cur_time(1) = 9) then
+
+                if (cur_time(1) = 10) then
                     cur_time(1) <= 0;
                     cur_time(2) <= cur_time(2) + 1;
                 end if;
-                if (cur_time(3) < 9 and cur_time(2) = 9) then
+
+                if (cur_time(2) = 10) then
                     cur_time(2) <= 0;
                     cur_time(3) <= cur_time(3) + 1;
                 end if;
-                if (cur_time(4) < 6 and cur_time(3) = 9) then
+
+                if (cur_time(3) = 10) then
                     cur_time(3) <= 0;
                     cur_time(4) <= cur_time(4) + 1;
-                elsif (cur_time(4) = 6) then
+                end if;
+
+                if (cur_time(4) = 6) then
                     timer_stop <= '1';
                 end if;
             end if;
