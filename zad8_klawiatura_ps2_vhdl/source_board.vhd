@@ -56,39 +56,22 @@ end component;
 function convert_ps2_code_to_7seg(ps2_code: std_logic_vector(7 downto 0)) return std_logic_vector is 
 begin
     case ps2_code is
-        -- when "00000001" => return ("0000001"); -- 0
-        -- when "01101001" => return ("1001111"); -- 1
-        -- when "01110010" => return ("0010010"); -- 2
-        -- when "01111010" => return ("0000110"); -- 3
-        -- when "01101011" => return ("1001100"); -- 4
-        -- when "00101110" => return ("0100100"); -- 5
-        -- when "00110110" => return ("0100000"); -- 6
-        -- when "00111101" => return ("0001111"); -- 7
-        -- when "00111110" => return ("0000000"); -- 8
-        -- when "01000110" => return ("0000100"); -- 9
-        -- when "00011100" => return ("0001000"); -- a
-        -- when "00110010" => return ("1100000"); -- b
-        -- when "00100001" => return ("0110001"); -- c
-        -- when "00100011" => return ("1000010"); -- d
-        -- when "00100100" => return ("0110000"); -- e
-        -- when "00101011" => return ("0111000"); -- f
-
-        when "10000000" => return ("0000001"); -- 0
-        when "10010110" => return ("1001111"); -- 1
-        when "01001110" => return ("0010010"); -- 2
-        when "01011110" => return ("0000110"); -- 3
-        when "11010110" => return ("1001100"); -- 4
-        when "01110100" => return ("0100100"); -- 5
-        when "01101100" => return ("0100000"); -- 6
-        when "10111100" => return ("0001111"); -- 7
-        when "01111100" => return ("0000000"); -- 8
-        when "01100010" => return ("0000100"); -- 9
-        when "00111000" => return ("0001000"); -- a
-        when "01001100" => return ("1100000"); -- b
-        when "10000100" => return ("0110001"); -- c
-        when "11000100" => return ("1000010"); -- d
+        when "01000101" => return ("0000001"); -- 0
+        when "00010110" => return ("1001111"); -- 1
+        when "00011110" => return ("0010010"); -- 2
+        when "00100110" => return ("0000110"); -- 3
+        when "00100101" => return ("1001100"); -- 4
+        when "00101110" => return ("0100100"); -- 5
+        when "00110110" => return ("0100000"); -- 6
+        when "00111101" => return ("0001111"); -- 7
+        when "00111110" => return ("0000000"); -- 8
+        when "01000110" => return ("0000100"); -- 9
+        when "00011100" => return ("0001000"); -- a
+        when "00110010" => return ("1100000"); -- b
+        when "00100001" => return ("0110001"); -- c
+        when "00100011" => return ("1000010"); -- d
         when "00100100" => return ("0110000"); -- e
-        when "11010100" => return ("0111000"); -- f
+        when "00101011" => return ("0111000"); -- f
         when others => return ("1111111"); -- null
     end case;
 end function convert_ps2_code_to_7seg;
@@ -106,8 +89,8 @@ begin
                led7_seg_o => led7_seg_o);
     ps2:keyboard
     port map ( rst_i => rst_i,
-               ps2_clk_i => clk_i, -- ps2_clk_stable_i
-               ps2_data_i => ps2_data_i, -- ps2_data_stable_i  ps2_data_i
+               ps2_clk_i => ps2_clk_stable_i, -- ps2_clk_stable_i
+               ps2_data_i => ps2_data_stable_i, -- ps2_data_stable_i  ps2_data_i
                ps2_code_o => ps2_code);
     deb_clk:debouncer
     port map ( clk_i => clk_i,

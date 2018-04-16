@@ -28,8 +28,6 @@ begin
                     if (ps2_data_i = '0') then
                         ps2_data_recived(ps2_data_bit_counter) <= ps2_data_i;
                         ps2_data_bit_counter <= ps2_data_bit_counter + 1;
-                 -- elsif (ps2_data_recived(10) = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
-                        -- ps2_code <= ps2_data_recived(8 downto 1);
                     end if;
                 when 1 to 9 =>
                     ps2_data_recived(ps2_data_bit_counter) <= ps2_data_i;
@@ -38,13 +36,15 @@ begin
                     ps2_data_recived(ps2_data_bit_counter) <= ps2_data_i;
                     ps2_data_bit_counter <= 0;
                     if(ps2_data_i = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
-                        if (ps2_data_recived(8 downto 1) = "00001111") then
-                           ps2_code_stop <= '1';
-                           ps2_code <= "00000000";
-                           ps2_data_recived <= "00000000000";
+                        if (ps2_data_recived(8 downto 1) = "11110000") then
+                          ps2_code_stop <= '1';
+                        --   ps2_code <= "00000000"; 
+                        --   ps2_data_recived <= "00000000000";
                         elsif(ps2_code_stop = '1') then
                            ps2_code_stop <= '0';
-                        else
+                        else 
+                        -- if (ps2_data_recived(10) = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
+                        -- ps2_code <= ps2_data_recived(8 downto 1);
                            ps2_code <= ps2_data_recived(8 downto 1);
                         end if;
                     else
