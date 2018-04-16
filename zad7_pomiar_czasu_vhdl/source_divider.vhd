@@ -10,8 +10,8 @@ entity divider is
 end divider;
 
 architecture behavioral of divider is
--- constant n : integer := 2; -- for simulation == 4
-constant n : integer := 2; -- for 1khz == 50000
+--constant n : integer := 2; -- for simulation == 4
+constant n : integer := 50000; -- for 1khz == 50000
 signal cnt_n : integer range 0 to n - 1 := 0;
 signal clk : std_logic := '0';
 begin
