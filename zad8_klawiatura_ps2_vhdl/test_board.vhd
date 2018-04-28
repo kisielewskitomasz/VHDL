@@ -41,7 +41,7 @@ BEGIN
    uut: board PORT MAP (
           clk_i => clk_i,
           rst_i => rst_i,
-          ps2_clk_i => ps2_clk_i,
+          ps2_clk_i => clk_i,
           ps2_data_i => ps2_data_i,
           led7_an_o => led7_an_o,
           led7_seg_o => led7_seg_o
@@ -65,11 +65,10 @@ BEGIN
 		ps2_data_i<='1';
       wait for 100 ns;	
 		rst_i <='0';
-      wait for (clk_i_period*9)+5 ns; --Z przesunieciem od zegara
+      wait for clk_i_period*9; -- +5 ns Z przesunieciem od zegara
 
-
-
--- 0001 1100 A key
+   
+-- 0010 0100 E key
 
 		ps2_data_i <= '0'; -- bit startu
 		wait for clk_i_period;
@@ -78,82 +77,20 @@ BEGIN
 		wait for clk_i_period;
 		ps2_data_i <= '0';
 		wait for clk_i_period;
-		ps2_data_i <= '0';
-		wait for clk_i_period;
 		ps2_data_i <= '1';
-		wait for clk_i_period;
-
-    ps2_data_i <= '1';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-    ps2_data_i <= '0';
 		wait for clk_i_period;
 		ps2_data_i <= '0';
 		wait for clk_i_period;
-
-		ps2_data_i <= '0'; -- bit parzystosci
-		wait for clk_i_period;
-		ps2_data_i <= '1'; -- bit stopu
-      wait for clk_i_period;
-      
-      wait for 400 ns;
-   
--- 1111 0000 F0
-   
-		ps2_data_i <= '0'; -- bit startu
-		wait for clk_i_period;
-
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-
       ps2_data_i <= '0';
 		wait for clk_i_period;
-		ps2_data_i <= '0';
+		ps2_data_i <= '1';
 		wait for clk_i_period;
-    ps2_data_i <= '0';
+      ps2_data_i <= '0';
 		wait for clk_i_period;
 		ps2_data_i <= '0';
 		wait for clk_i_period;
 
 		ps2_data_i <= '1'; -- bit parzystosci
-		wait for clk_i_period;
-		ps2_data_i <= '1'; -- bit stopu
-      wait for clk_i_period;
-      
-      wait for 400 ns;
-      
-      
--- 0001 1100 A key
-
-		ps2_data_i <= '0'; -- bit startu
-		wait for clk_i_period;
-
-		ps2_data_i <= '0';
-		wait for clk_i_period;
-		ps2_data_i <= '0';
-		wait for clk_i_period;
-		ps2_data_i <= '0';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-
-      ps2_data_i <= '1';
-		wait for clk_i_period;
-		ps2_data_i <= '1';
-		wait for clk_i_period;
-      ps2_data_i <= '0';
-		wait for clk_i_period;
-		ps2_data_i <= '0';
-		wait for clk_i_period;
-
-		ps2_data_i <= '0'; -- bit parzystosci
 		wait for clk_i_period;
 		ps2_data_i <= '1'; -- bit stopu
       wait for 400 ns;

@@ -12,15 +12,17 @@ end keyboard;
 
 architecture behavioral of keyboard is
 signal ps2_code : std_logic_vector (7 downto 0) := (others => '0');
+signal ps2_key_pressed : std_logic := '0';
 signal ps2_data_bit_counter : integer range 0 to 10 := 0;
 signal ps2_data_recived : std_logic_vector (10 downto 0);
-signal ps2_code_stop : std_logic := '0';
+--signal ps2_code_stop : std_logic := '0';
 
 begin
     process (ps2_clk_i, rst_i)
     begin
         if (rst_i = '1') then
             ps2_code <= "00000000";
+			ps2_key_pressed <= '0';
             ps2_data_recived <= "00000000000";
         elsif (falling_edge(ps2_clk_i)) then
             case ps2_data_bit_counter is 
@@ -28,6 +30,8 @@ begin
                     if (ps2_data_i = '0') then
                         ps2_data_recived(ps2_data_bit_counter) <= ps2_data_i;
                         ps2_data_bit_counter <= ps2_data_bit_counter + 1;
+                 -- elsif (ps2_data_recived(10) = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
+                        -- ps2_code <= ps2_data_recived(8 downto 1);
                     end if;
                 when 1 to 9 =>
                     ps2_data_recived(ps2_data_bit_counter) <= ps2_data_i;
@@ -37,15 +41,19 @@ begin
                     ps2_data_bit_counter <= 0;
                     if(ps2_data_i = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
                         if (ps2_data_recived(8 downto 1) = "11110000") then
-                          ps2_code_stop <= '1';
-                        --   ps2_code <= "00000000"; 
+                            ps2_key_pressed <= '0';
+                        --   ps2_code_stop <= '1';
+                        --   ps2_code <= "00000000";
                         --   ps2_data_recived <= "00000000000";
-                        elsif(ps2_code_stop = '1') then
-                           ps2_code_stop <= '0';
-                        else 
-                        -- if (ps2_data_recived(10) = '1' and ps2_data_recived(9) /= (ps2_data_recived(1) xor ps2_data_recived(2) xor ps2_data_recived(3) xor ps2_data_recived(4) xor ps2_data_recived(5) xor ps2_data_recived(6) xor ps2_data_recived(7) xor ps2_data_recived(8))) then
-                        -- ps2_code <= ps2_data_recived(8 downto 1);
+                        --elsif(ps2_code_stop = '1') then
+                        --   ps2_code_stop <= '0';
+                        -- else
+                        --    ps2_code <= ps2_data_recived(8 downto 1);
+                        --    ps2_key_pressed <= '1'
+                        --end if;
+                        elsif(ps2_key_pressed = '0')
                            ps2_code <= ps2_data_recived(8 downto 1);
+                           ps2_key_pressed <= '1'
                         end if;
                     else
                         ps2_code <= "00000000";
