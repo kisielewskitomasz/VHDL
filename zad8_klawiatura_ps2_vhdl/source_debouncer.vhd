@@ -15,7 +15,7 @@ signal key_synch : std_logic := '0';
 signal key_stable_out : std_logic := '0';
 begin
     process (clk_i) is
-    variable delay_cntr : integer range 0 to 3 := 0; -- for sim 1; for run 3
+    variable delay_cntr : integer range 0 to 1 := 0; -- for sim 1; for run 3
     begin
       if rising_edge(clk_i) then
          q <= key_i;
