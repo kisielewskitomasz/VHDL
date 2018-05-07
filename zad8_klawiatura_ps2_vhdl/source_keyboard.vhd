@@ -15,7 +15,7 @@ signal ps2_code : std_logic_vector (7 downto 0) := (others => '0');
 signal ps2_code_old : std_logic_vector (7 downto 0) := (others => '0');
 signal ps2_break : std_logic := '0';
 signal ps2_data_bit_counter : integer range 0 to 10 := 0;
-signal ps2_data_recived : std_logic_vector (10 downto 0);
+signal ps2_data_recived : std_logic_vector (10 downto 0) := (others => '0');
 
 begin
     process (ps2_clk_i, rst_i)
