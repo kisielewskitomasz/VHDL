@@ -19,6 +19,7 @@ ARCHITECTURE behavior OF test_boardv3 IS
          led7_an_o : OUT  std_logic_vector(3 downto 0);
          led7_seg_o : OUT  std_logic_vector(7 downto 0)
         );
+    END COMPONENT;
     
 
    --Inputs
