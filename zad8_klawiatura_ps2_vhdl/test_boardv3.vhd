@@ -26,7 +26,7 @@ ARCHITECTURE behavior OF test_boardv3 IS
    signal clk_i : std_logic := '0';
    signal rst_i : std_logic := '0';
    signal ps2_clk_i : std_logic := '0';
-   signal ps2_data_i : std_logic := '0';
+   signal ps2_data_i : std_logic := '1';
 
  	--Outputs
    signal led7_an_o : std_logic_vector(3 downto 0);
@@ -71,7 +71,7 @@ BEGIN
       -- hold reset state for 100ms.
       wait for 100 ns;
 		ps2_data_i<='1';
-      wait for (ps2_clk_i_period*5)+10 ns; -- +5 ns Z przesunieciem od zegara
+      wait for (ps2_clk_i_period*5) + ps2_clk_i_period/2; -- +5 ns Z przesunieciem od zegara
 		
 -- 0010 0100 E key down
 
@@ -98,34 +98,34 @@ BEGIN
 		ps2_data_i <= '1'; -- bit parzystosci
 		wait for ps2_clk_i_period;
 		ps2_data_i <= '1'; -- bit stopu
-      wait for ps2_clk_i_period*3;
+      wait for ps2_clk_i_period*4;
 
       -- 1111 0000 F0 symb 1111 0000
 
-		ps2_data_i <= '0'; -- bit startu
-		wait for ps2_clk_i_period;
-
-		ps2_data_i <= '0';
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '0';
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '0';
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '0';
-		wait for ps2_clk_i_period;
-      ps2_data_i <= '1';
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '1';
-		wait for ps2_clk_i_period;
-      ps2_data_i <= '1';
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '1';
-		wait for ps2_clk_i_period;
-
-		ps2_data_i <= '1'; -- bit parzystosci
-		wait for ps2_clk_i_period;
-		ps2_data_i <= '1'; -- bit stopu
-      wait for ps2_clk_i_period;
+--		ps2_data_i <= '0'; -- bit startu
+--		wait for ps2_clk_i_period;
+--
+--		ps2_data_i <= '0';
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '0';
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '0';
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '0';
+--		wait for ps2_clk_i_period;
+--      ps2_data_i <= '1';
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '1';
+--		wait for ps2_clk_i_period;
+--      ps2_data_i <= '1';
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '1';
+--		wait for ps2_clk_i_period;
+--
+--		ps2_data_i <= '1'; -- bit parzystosci
+--		wait for ps2_clk_i_period;
+--		ps2_data_i <= '1'; -- bit stopu
+--      wait for ps2_clk_i_period;
 
       wait;
    end process;

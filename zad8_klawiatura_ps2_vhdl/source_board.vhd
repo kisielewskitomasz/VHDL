@@ -41,11 +41,11 @@ component keyboard
            ps2_code_o : out std_logic_vector (7 downto 0));
 end component;
 
-component debouncer
-    port ( key_i : in std_logic;
-           clk_i : in std_logic;
-           key_stable_o : out std_logic);
-end component;
+--component debouncer
+--    port ( key_i : in std_logic;
+--           clk_i : in std_logic;
+--           key_stable_o : out std_logic);
+--end component;
 
 --component synchro
 --    port ( clk_i : in std_logic;
@@ -89,17 +89,17 @@ begin
                led7_seg_o => led7_seg_o);
     ps2:keyboard
     port map ( rst_i => rst_i,
-               ps2_clk_i => ps2_clk_stable_i, -- ps2_clk_stable_i ps2_clk_stable_synch_i
-               ps2_data_i => ps2_data_stable_i, -- ps2_data_stable_i  ps2_data_i
+               ps2_clk_i => ps2_clk_i, -- ps2_clk_stable_i ps2_clk_stable_synch_i ps2_clk_i
+               ps2_data_i => ps2_data_i, -- ps2_data_stable_i  ps2_data_i
                ps2_code_o => ps2_code);
-    deb_clk:debouncer
-    port map ( clk_i => clk_i,
-               key_i => ps2_clk_i,
-               key_stable_o => ps2_clk_stable_i);
-    deb_data:debouncer
-    port map ( clk_i => clk_i,
-               key_i => ps2_data_i,
-               key_stable_o => ps2_data_stable_i);
+--    deb_clk:debouncer
+--    port map ( clk_i => clk_i,
+--               key_i => ps2_clk_i,
+--               key_stable_o => ps2_clk_stable_i);
+--    deb_data:debouncer
+--    port map ( clk_i => clk_i,
+--               key_i => ps2_data_i,
+--               key_stable_o => ps2_data_stable_i);
     --syn:synchro
     --port map ( clk_i => ps2_clk_stable_i,
     --           ps2_clk_i => ps2_clk_i,
