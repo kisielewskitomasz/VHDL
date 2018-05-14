@@ -10,12 +10,13 @@ entity debouncer is
 end debouncer;
 
 architecture behavioral of debouncer is
+constant n : integer := 1;  -- for sim 1; for run 3
 signal q : std_logic := '0';
 signal key_synch : std_logic := '0';
 signal key_stable_out : std_logic := '0';
 begin
     process (clk_i) is
-    variable delay_cntr : integer range 0 to 1 := 0; -- for sim 1; for run 3
+    variable delay_cntr : integer range 0 to n := 0;
     begin
       if rising_edge(clk_i) then
          q <= key_i;
@@ -25,7 +26,7 @@ begin
          else
             delay_cntr := delay_cntr + 1;
          end if;
-         if (delay_cntr = 3) then
+         if (delay_cntr = n) then
             key_stable_out <= key_synch;
             delay_cntr := 0;
          end if;

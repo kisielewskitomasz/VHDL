@@ -17,7 +17,7 @@ signal clk_div : std_logic;
 signal digit : std_logic_vector (31 downto 0) := (others => '1');
 signal ps2_code : std_logic_vector (7 downto 0) := (others => '0');
 signal ps2_clk_stable_i : std_logic;
---signal ps2_clk_stable_synch_i : std_logic;
+signal ps2_clk_stable_synch_i : std_logic;
 signal ps2_data_stable_i : std_logic;
 
 component divider
@@ -41,17 +41,17 @@ component keyboard
            ps2_code_o : out std_logic_vector (7 downto 0));
 end component;
 
---component debouncer
---    port ( key_i : in std_logic;
---           clk_i : in std_logic;
---           key_stable_o : out std_logic);
---end component;
+component debouncer
+    port ( key_i : in std_logic;
+           clk_i : in std_logic;
+           key_stable_o : out std_logic);
+end component;
 
---component synchro
---    port ( clk_i : in std_logic;
---           ps2_clk_i : in std_logic;
---           clk_o : out std_logic);
---end component;
+component synchro
+    port ( clk_i : in std_logic;
+           ps2_clk_i : in std_logic;
+           clk_o : out std_logic);
+end component;
 
 function convert_ps2_code_to_7seg(ps2_code: std_logic_vector(7 downto 0)) return std_logic_vector is 
 begin
@@ -92,18 +92,18 @@ begin
                ps2_clk_i => ps2_clk_i, -- ps2_clk_stable_i ps2_clk_stable_synch_i ps2_clk_i
                ps2_data_i => ps2_data_i, -- ps2_data_stable_i  ps2_data_i
                ps2_code_o => ps2_code);
---    deb_clk:debouncer
---    port map ( clk_i => clk_i,
---               key_i => ps2_clk_i,
---               key_stable_o => ps2_clk_stable_i);
---    deb_data:debouncer
---    port map ( clk_i => clk_i,
---               key_i => ps2_data_i,
---               key_stable_o => ps2_data_stable_i);
-    --syn:synchro
-    --port map ( clk_i => ps2_clk_stable_i,
-    --           ps2_clk_i => ps2_clk_i,
-    --           clk_o => ps2_clk_stable_synch_i);
+    deb_clk:debouncer
+    port map ( clk_i => clk_i,
+               key_i => ps2_clk_i,
+               key_stable_o => ps2_clk_stable_i);
+    deb_data:debouncer
+    port map ( clk_i => clk_i,
+               key_i => ps2_data_i,
+               key_stable_o => ps2_data_stable_i);
+    syn:synchro
+    port map ( clk_i => ps2_clk_stable_i,
+               ps2_clk_i => ps2_clk_i,
+               clk_o => ps2_clk_stable_synch_i);
                 
     process (ps2_code)
     begin
