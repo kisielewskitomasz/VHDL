@@ -19,7 +19,6 @@ ARCHITECTURE behavior OF test_board IS
         );
     END COMPONENT;
     
-
    --Inputs
    signal clk_i : std_logic := '0';
    signal rst_i : std_logic := '0';
@@ -29,9 +28,11 @@ ARCHITECTURE behavior OF test_board IS
    signal TXD_o : std_logic := '1';
 
    -- Clock period definitions
+			constant n : integer := 1;
    constant clk_i_period : time := 50 ns;
  
 BEGIN
+
  
 	-- Instantiate the Unit Under Test (UUT)
    uut: board PORT MAP (
@@ -51,23 +52,25 @@ BEGIN
    end process;
  
 
+
    -- Stimulus process
    stim_proc: process
-   begin		
-      
-      wait for 75 ns;
-      RXD_i <= '0';
-      wait for 500 ns;
-      RXD_i <= '1';
-      wait for 100 ns;
-      RXD_i <= '0';
-      wait for 100 ns;
-      RXD_i <= '1';
-      wait for 100 ns;
-      RXD_i <= '0';
-      wait for 200 ns;
-      RXD_i <= '1';
+   begin	
 
+	
+		wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '1';
+      wait for clk_i_period*5*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '1';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '1';
+      wait for clk_i_period*1*n;
 
       wait;
    end process;

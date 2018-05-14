@@ -19,8 +19,7 @@ signal rxd_status : integer range 0 to 4 := 0;
 signal txd_status : integer range 0 to 1 := 0;
 signal rxd_timer : integer range 0 to 65535 := 0;
 signal txd_timer : integer range 0 to 65535 := 0;
-constant rs232_period : integer := 2; -- for simulation == 2
--- constant rs232_period : integer := 50000000/9600; -- for 9600 bps == 50000000/9600
+constant rs232_period : integer := 2; -- for 9600 bps == 50000000/9600 -- for simulation == 2
 constant rs232_half_period : integer := rs232_period/2;
 begin
     process (clk_i, rst_i)
@@ -77,7 +76,7 @@ begin
                     rxd_status <= 0;
                 end if;
             elsif (rxd_status = 3) then
-                txd_code <= rxd_code + 32;
+                txd_code <= rxd_code;
                 rxd_status <= 4;
             elsif (rxd_status = 4) then
                 txd_data_transmited(0) <= '0';
