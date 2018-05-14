@@ -59,18 +59,32 @@ BEGIN
 
 	
 		wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		RXD_i <= '1';
-      wait for clk_i_period*5*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
 		RXD_i <= '1';
       wait for clk_i_period*1*n;
 		RXD_i <= '0';
+		
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
       wait for clk_i_period*1*n;
 		RXD_i <= '1';
       wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+		
+      wait for clk_i_period*1*n;
+		RXD_i <= '1';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		
+		RXD_i <= '1';
+      wait for clk_i_period*1*n;
+
 
       wait;
    end process;
