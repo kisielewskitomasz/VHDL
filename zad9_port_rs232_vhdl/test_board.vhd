@@ -28,8 +28,8 @@ ARCHITECTURE behavior OF test_board IS
    signal TXD_o : std_logic := '1';
 
    -- Clock period definitions
-			constant n : integer := 1;
-   constant clk_i_period : time := 50 ns;
+   constant n : integer := 4;
+   constant clk_i_period : time := 20 ns;
  
 BEGIN
 
@@ -57,35 +57,33 @@ BEGIN
    stim_proc: process
    begin	
 
-	
-		wait for clk_i_period*1*n;
-		RXD_i <= '1';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-		
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		RXD_i <= '1';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-		
-      wait for clk_i_period*1*n;
-		RXD_i <= '1';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		RXD_i <= '0';
-      wait for clk_i_period*1*n;
-		
-		RXD_i <= '1';
-      wait for clk_i_period*1*n;
+      RXD_i <= '1'; -- ready bit
+		wait for 50 ns;
 
-
+		RXD_i <= '0'; -- start bit
+      wait for clk_i_period*1*n;
+		
+		RXD_i <= '0'; -- B: 0100 0010 / 0x42 / 66
+      wait for clk_i_period*1*n;
+      RXD_i <= '1';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+		RXD_i <= '1';
+      wait for clk_i_period*1*n;
+		RXD_i <= '0';
+      wait for clk_i_period*1*n;
+      
+		RXD_i <= '1'; -- stop bit
+      wait for clk_i_period*1*n;
+		
       wait;
    end process;
 
