@@ -21,6 +21,9 @@ signal clk_div : std_logic;
 signal red : std_logic;
 signal green : std_logic;
 signal blue : std_logic;
+signal video_on : std_logic;
+signal h_pxl : integer;
+signal v_pxl : integer;
 
 component divider
     port ( clk_i : in std_logic;
@@ -29,10 +32,10 @@ component divider
 end component;
 
 component vga
-    port ( pxl_clk_i : in std_logic;
+    port ( clk_i : in std_logic;
            rst_i : in std_logic;
            hs_o : out std_logic;
-           vs_o : out std_logic
+           vs_o : out std_logic;
            video_on_o : out std_logic;
            h_pxl_o : out integer; 
            v_pxl_o : out integer);
@@ -45,20 +48,20 @@ begin
             clk_o => clk_div);
 
     v:vga
-    port map ( pxl_clk_i => clk_div,
+    port map ( clk_i => clk_div,
                rst_i => rst_i,
                hs_o => hs_o,
                vs_o => vs_o,
-               video_on_o => video_on_o,
-               h_pxl_o => h_pxl_o,
-               v_pxl_o => v_pxl_o);
+               video_on_o => video_on,
+               h_pxl_o => h_pxl,
+               v_pxl_o => v_pxl);
 
     process (clk_i)
     begin
         if (rising_edge(clk_i)) then
-            if (video_on_o = '1') then
-                if(v_pxl_o >= 192 and v_pxl_o < 288) then -- 480-96=384 384/2=192 192+96=288
-                    if (h_pxl_o >= 192 and h_pxl_o < 448) then -- 640-256=384 384/2=192 192+256=448
+            if (video_on = '1') then
+                if(v_pxl >= 192 and v_pxl < 288) then -- 480-96=384 384/2=192 192+96=288
+                    if (h_pxl >= 192 and h_pxl < 448) then -- 640-256=384 384/2=192 192+256=448
                         red <= sw5_i; -- odczyn BMP
                         green <= sw6_i; -- odczyn BMP
                         blue <= sw7_i; -- odczyn BMP
