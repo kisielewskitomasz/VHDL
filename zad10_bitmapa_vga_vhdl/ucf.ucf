@@ -1,0 +1,16 @@
+# Clock:
+NET "clk_i" LOC = "T9" ; # 50 MHz clock
+NET "clk_i" TNM_NET = "clk";
+TIMESPEC "TS_clk" = PERIOD "clk" 15 ns HIGH 50 %;
+# Push-buttons:
+NET "rst_i" LOC = "L14" ; # pressed high BTN3
+# VGA port:
+NET "blu_o" LOC = "R11" ;
+NET "grn_o" LOC = "T12" ;
+NET "red_o" LOC = "R12" ;
+NET "hs_o" LOC = "R9" ; # horisontal sync
+NET "vs_o" LOC = "T10" ; # vertical sync
+# Slide switches
+NET "sw5_i" LOC = "J13" ; # active high when in UP position
+NET "sw6_i" LOC = "K14" ; # active high when in UP position
+NET "sw7_i" LOC = "K13" ; # active high when in UP position
